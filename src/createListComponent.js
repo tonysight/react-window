@@ -58,6 +58,7 @@ type InnerProps = {|
 export type Props<T> = {|
   children: RenderComponent<T>,
   className?: string,
+  debounceTime?: number,
   direction: Direction,
   height: number | string,
   initialScrollOffset?: number,
@@ -610,13 +611,15 @@ export default function createListComponent({
     };
 
     _resetIsScrollingDebounced = () => {
+      const { debounceTime = IS_SCROLLING_DEBOUNCE_INTERVAL } = this.props;
+
       if (this._resetIsScrollingTimeoutId !== null) {
         cancelTimeout(this._resetIsScrollingTimeoutId);
       }
 
       this._resetIsScrollingTimeoutId = requestTimeout(
         this._resetIsScrolling,
-        IS_SCROLLING_DEBOUNCE_INTERVAL
+        debounceTime
       );
     };
 

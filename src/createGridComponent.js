@@ -67,6 +67,7 @@ export type Props<T> = {|
   className?: string,
   columnCount: number,
   columnWidth: itemSize,
+  debounceTime?: number,
   direction: Direction,
   height: number,
   initialScrollLeft?: number,
@@ -806,13 +807,15 @@ export default function createGridComponent({
     };
 
     _resetIsScrollingDebounced = () => {
+      const { debounceTime = IS_SCROLLING_DEBOUNCE_INTERVAL } = this.props;
+
       if (this._resetIsScrollingTimeoutId !== null) {
         cancelTimeout(this._resetIsScrollingTimeoutId);
       }
 
       this._resetIsScrollingTimeoutId = requestTimeout(
         this._resetIsScrolling,
-        IS_SCROLLING_DEBOUNCE_INTERVAL
+        debounceTime
       );
     };
 
