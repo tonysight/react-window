@@ -6,7 +6,7 @@ node_modules
 
 # builds
 build
-dist
+# dist # temporarily comment out so can test out the modifications
 
 # misc
 .DS_Store
